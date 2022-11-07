@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var total = "112.63"
+    
     var body: some View {
         ZStack {
             // Background
@@ -40,9 +42,23 @@ struct ContentView: View {
                     // Bill amount
                     Text("Enter bill amount:")
                         .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
-                    HStack {
-                        Text("$")
-                        Text("112.63")
+                    VStack {
+                        HStack {
+                            Text("$")
+                                .fontWeight(.bold)
+                                .font(.system(size: 25.0))
+                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            TextField("Total", text: $total)
+                                .frame(width: 90)
+                                .fontWeight(.bold)
+                                .font(.system(size: 25.0))
+                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                        }.padding(.bottom, -9)
+                        Divider()
+                            .frame(width: 40)
+                            .padding(.horizontal, 30)
+                            .background(Color.black)
+                            .opacity(0.3)
                     }
                 }
             }
