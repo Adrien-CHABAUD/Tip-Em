@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     
@@ -53,6 +54,13 @@ struct ContentView: View {
                                 .fontWeight(.bold)
                                 .font(.system(size: 25.0))
                                 .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                                .keyboardType(.decimalPad)
+                                .onReceive(Just(total)) { newValue in
+                                    let filtered = newValue.filter { "0123456789.".contains($0) }
+                                    if filtered != newValue {
+                                        self.total = filtered
+                                    }
+                                }
                         }.padding(.bottom, -9)
                         Divider()
                             .frame(width: 40)
