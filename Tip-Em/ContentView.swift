@@ -11,10 +11,11 @@ import Combine
 struct ContentView: View {
     
     @State var total = "112.63"
+    @State var tip = 20.0
     
     var body: some View {
         ZStack {
-            // Background
+            //MARK: - BACKGROUND
             Rectangle()
                 .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
                 .edgesIgnoringSafeArea(.all)
@@ -23,6 +24,8 @@ struct ContentView: View {
                 .frame(width: 550)
                 .foregroundColor(.white)
                 .rotationEffect(Angle(degrees: 80))
+            
+            //MARK: - TITLE + SHARE
             VStack {
                 HStack {
                     //Title
@@ -39,6 +42,7 @@ struct ContentView: View {
                     .padding(.trailing, 30)
                     .padding([.top,	 .bottom], 16)
                 
+                //MARK: - BILL AMOUNT
                 VStack {
                     // Bill amount
                     Text("Enter bill amount:")
@@ -68,6 +72,21 @@ struct ContentView: View {
                             .background(Color.black)
                             .opacity(0.3)
                     }
+                }
+                
+                //MARK: - TIPPING
+                VStack {
+                    HStack {
+                        Text("Choose a tip: ")
+                            .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                        Text("\(tip, specifier: "%.1f")%")
+                            .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            .fontWeight(.bold)
+                            .font(.system(size: 25.0))
+                    }.padding([.bottom, .top], 10)
+                    
+                    Slider(value: $tip, in: 0...100)
+                        .padding(.horizontal, 90)
                 }
             }
             
