@@ -18,6 +18,8 @@ struct ContentView: View {
     @State var partBill = 37.54
     @State var partTip = 7.51
     
+    private let url = URL(string: "https://www.apple.com")!
+    
     
     var body: some View {
         ZStack {
@@ -42,8 +44,18 @@ struct ContentView: View {
                         .padding(.trailing, 30)
                     
                     // Share button (to send by text)
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(Color.white)
+                    ShareLink(item: "Hello World!"){
+                        Label("", systemImage: "square.and.arrow.up")
+                            .foregroundColor(Color.white)
+                    }
+                    
+//                    Button(action: {
+//                        print("pressed")
+//                    }, label: {Image(systemName: "square.and.arrow.up")
+//                        .foregroundColor(Color.white)
+//
+//                    })
+                    
                     
                 }.scaleEffect(2)
                     .padding(.leading, 150)
