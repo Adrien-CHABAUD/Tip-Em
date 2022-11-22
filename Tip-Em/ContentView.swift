@@ -18,11 +18,14 @@ struct ContentView: View {
     @State var partBill = 37.54
     @State var partTip = 7.51
     
+    let orangeColor = Color(red: 243/255, green: 154/255, blue: 54/255)
+    let greyColor = Color(red: 159/255, green: 166/255, blue: 162/255)
+    
     var body: some View {
         ZStack {
             //MARK: - BACKGROUND
             Rectangle()
-                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                .foregroundColor(orangeColor)
                 .edgesIgnoringSafeArea(.all)
             
             
@@ -63,7 +66,7 @@ struct ContentView: View {
                 VStack {
                     // Bill amount
                     Text("Enter bill amount:")
-                        .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                        .foregroundColor(greyColor)
                         .font(.system(size: 20.0))
                     
                     VStack {
@@ -71,7 +74,7 @@ struct ContentView: View {
                             Text("$")
                                 .fontWeight(.bold)
                                 .font(.system(size: 25.0))
-                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                                .foregroundColor(orangeColor)
                             
                             TextField("Total", text: $total){ _ in
                                 updateNumbers()
@@ -79,7 +82,7 @@ struct ContentView: View {
                             .frame(width: 90)
                             .fontWeight(.bold)
                             .font(.system(size: 25.0))
-                            .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            .foregroundColor(orangeColor)
                             .keyboardType(.decimalPad)
                             .onReceive(Just(total)) { newValue in
                                 let filtered = newValue.filter { "0123456789.".contains($0) }
@@ -100,11 +103,11 @@ struct ContentView: View {
                 VStack {
                     HStack {
                         Text("Choose a tip: ")
-                            .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                            .foregroundColor(greyColor)
                             .font(.system(size: 20.0))
                         
                         Text("\(tip, specifier: "%.1f")%")
-                            .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            .foregroundColor(orangeColor)
                             .fontWeight(.bold)
                             .font(.system(size: 25.0))
                         
@@ -119,7 +122,7 @@ struct ContentView: View {
                 //MARK: - SPLIT
                 VStack {
                     Text("Split into:")
-                        .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                        .foregroundColor(greyColor)
                         .font(.system(size: 20.0))
                         .padding(.vertical, 8)
                     
@@ -132,7 +135,7 @@ struct ContentView: View {
                         .padding(.trailing, 12)
                         
                         Text("\(splitNumber, specifier: "%.f")")
-                            .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            .foregroundColor(orangeColor)
                             .fontWeight(.bold)
                             .font(.system(size: 25.0))
                         
@@ -144,11 +147,11 @@ struct ContentView: View {
                     VStack(spacing: 8) {
                         //Total person
                         Text("Total per person:")
-                            .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                            .foregroundColor(greyColor)
                             .font(.system(size: 20.0))
                         
                         Text("$\(totalPerPerson, specifier: "%.2f")")
-                            .foregroundColor((Color(red: 243/255, green: 154/255, blue: 54/255)))
+                            .foregroundColor(orangeColor)
                             .fontWeight(.bold)
                             .font(.system(size: 25.0))
                     }
@@ -158,11 +161,11 @@ struct ContentView: View {
                             // Bill Part
                             
                             Text("Bill")
-                                .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                                .foregroundColor(greyColor)
                                 .font(.system(size: 20.0))
                             
                             Text("$\(partBill, specifier: "%.2f")")
-                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                                .foregroundColor(orangeColor)
                                 .font(.system(size: 25.0))
                                 .fontWeight(.bold)
                         }
@@ -170,11 +173,11 @@ struct ContentView: View {
                         VStack(spacing: 8){
                             // Tip Part
                             Text("Tip")
-                                .foregroundColor(Color(red: 159/255, green: 166/255, blue: 162/255))
+                                .foregroundColor(greyColor)
                                 .font(.system(size: 20.0))
                             
                             Text("$\(partTip, specifier: "%.2f")")
-                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                                .foregroundColor(orangeColor)
                                 .font(.system(size: 25.0))
                                 .fontWeight(.bold)
                         }
