@@ -10,6 +10,7 @@ import Combine
 
 struct ContentView: View {
     
+    // Main variables
     @State var total = "112.63"
     @State var tip = 20.0
     @State var splitNumber = 1.0
@@ -18,8 +19,14 @@ struct ContentView: View {
     @State var partBill = 37.54
     @State var partTip = 7.51
     
+    // Colors used in the app
     let orangeColor = Color(red: 243/255, green: 154/255, blue: 54/255)
     let greyColor = Color(red: 159/255, green: 166/255, blue: 162/255)
+    
+    // Different fonts used
+    let titleFontSize = 21.0
+    let mainFontSize = 25.0
+    let subFontSize = 20.0
     
     var body: some View {
         ZStack {
@@ -38,24 +45,16 @@ struct ContentView: View {
             VStack {
                 HStack {
                     //Title
-                    Text("Tip-Em")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.white)
+                    TextViewExtract(text: "Tip-Em", color: Color.white, fontSize: titleFontSize)
                         .padding(.trailing, 30)
+                        .fontWeight(.bold)
+
                     
                     // Share button (to send by text)
                     ShareLink(item: createMessage()){
                         Label("", systemImage: "square.and.arrow.up")
                             .foregroundColor(Color.white)
                     }
-                    
-                    //                    Button(action: {
-                    //                        print("pressed")
-                    //                    }, label: {Image(systemName: "square.and.arrow.up")
-                    //                        .foregroundColor(Color.white)
-                    //
-                    //                    })
-                    
                     
                 }.scaleEffect(2)
                     .padding(.leading, 150)
@@ -65,23 +64,21 @@ struct ContentView: View {
                 //MARK: - BILL AMOUNT
                 VStack {
                     // Bill amount
-                    Text("Enter bill amount:")
-                        .foregroundColor(greyColor)
-                        .font(.system(size: 20.0))
+                    TextViewExtract(text: "Enter bill amount:", color: greyColor, fontSize: subFontSize)
+                        .font(.system(size: subFontSize))
                     
                     VStack {
                         HStack {
-                            Text("$")
+                            TextViewExtract(text: "$", color: orangeColor, fontSize: mainFontSize)
                                 .fontWeight(.bold)
-                                .font(.system(size: 25.0))
-                                .foregroundColor(orangeColor)
+                                .font(.system(size: mainFontSize))
                             
                             TextField("Total", text: $total){ _ in
                                 updateNumbers()
                             }
                             .frame(width: 90)
                             .fontWeight(.bold)
-                            .font(.system(size: 25.0))
+                            .font(.system(size: mainFontSize))
                             .foregroundColor(orangeColor)
                             .keyboardType(.decimalPad)
                             .onReceive(Just(total)) { newValue in
@@ -102,14 +99,12 @@ struct ContentView: View {
                 //MARK: - TIPPING
                 VStack {
                     HStack {
-                        Text("Choose a tip: ")
-                            .foregroundColor(greyColor)
-                            .font(.system(size: 20.0))
+                        TextViewExtract(text: "Choose a tip: ", color: greyColor, fontSize: subFontSize)
                         
                         Text("\(tip, specifier: "%.1f")%")
                             .foregroundColor(orangeColor)
                             .fontWeight(.bold)
-                            .font(.system(size: 25.0))
+                            .font(.system(size: mainFontSize))
                         
                     }.padding([.bottom, .top], 10)
                     
@@ -121,9 +116,7 @@ struct ContentView: View {
                 
                 //MARK: - SPLIT
                 VStack {
-                    Text("Split into:")
-                        .foregroundColor(greyColor)
-                        .font(.system(size: 20.0))
+                    TextViewExtract(text: "Split into:", color: greyColor, fontSize: subFontSize)
                         .padding(.vertical, 8)
                     
                     HStack {
@@ -137,48 +130,42 @@ struct ContentView: View {
                         Text("\(splitNumber, specifier: "%.f")")
                             .foregroundColor(orangeColor)
                             .fontWeight(.bold)
-                            .font(.system(size: 25.0))
+                            .font(.system(size: mainFontSize))
                         
                     }
                 }.padding(.vertical, 8)
                 
-                //MARK: - TOTAL
+                //MARK: - TOTALs
                 VStack {
                     VStack(spacing: 8) {
-                        //Total person
-                        Text("Total per person:")
-                            .foregroundColor(greyColor)
-                            .font(.system(size: 20.0))
+                        //Display of the Total per person
+                        TextViewExtract(text: "Total per person:", color: greyColor, fontSize: subFontSize)
                         
                         Text("$\(totalPerPerson, specifier: "%.2f")")
                             .foregroundColor(orangeColor)
                             .fontWeight(.bold)
-                            .font(.system(size: 25.0))
+                            .font(.system(size: mainFontSize))
                     }
                     
                     HStack(spacing: 150){
                         VStack(spacing: 8){
-                            // Bill Part
+                            // Display of the Bill Part
                             
-                            Text("Bill")
-                                .foregroundColor(greyColor)
-                                .font(.system(size: 20.0))
+                            TextViewExtract(text: "Bill", color: greyColor, fontSize: subFontSize)
                             
                             Text("$\(partBill, specifier: "%.2f")")
                                 .foregroundColor(orangeColor)
-                                .font(.system(size: 25.0))
+                                .font(.system(size: mainFontSize))
                                 .fontWeight(.bold)
                         }
                         
                         VStack(spacing: 8){
-                            // Tip Part
-                            Text("Tip")
-                                .foregroundColor(greyColor)
-                                .font(.system(size: 20.0))
+                            // Display of the Tip Part
+                            TextViewExtract(text: "Tip", color: greyColor, fontSize: subFontSize)
                             
                             Text("$\(partTip, specifier: "%.2f")")
                                 .foregroundColor(orangeColor)
-                                .font(.system(size: 25.0))
+                                .font(.system(size: mainFontSize))
                                 .fontWeight(.bold)
                         }
                     }
@@ -189,6 +176,10 @@ struct ContentView: View {
         }
     }
     
+    /*
+     * Calculate the different items to show with the information given
+     * by the user
+     */
     func updateNumbers() {
         let totalDouble = Double(total)!
         let tipAmount = totalDouble * tip / 100
@@ -199,11 +190,29 @@ struct ContentView: View {
         partBill = totalDouble / splitNumber
     }
     
-    
+    /*
+     * Allow to build the message to pass through the ShareLink(),
+     * when the user press the share button
+     */
     func createMessage() -> String {
         let message = "Bill Amount: $\(total)\nTip Amount: \(tip)%\nSplit:\(splitNumber)\nTotal per person: $\(totalPerPerson)"
         print(message)
         return message
+    }
+}
+/*
+ * Allow less repetition of code by showing a basic Text() item with a color
+ * a font size and a text
+ */
+struct TextViewExtract: View {
+    let text: String
+    let color: Color
+    let fontSize: Double
+    
+    var body: some View {
+        Text(text)
+            .foregroundColor(color)
+            .font(.system(size: fontSize))
     }
 }
 
