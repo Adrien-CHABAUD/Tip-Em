@@ -18,21 +18,18 @@ struct ContentView: View {
     @State var partBill = 37.54
     @State var partTip = 7.51
     
-    private let url = URL(string: "https://www.apple.com")!
-    
-    
     var body: some View {
         ZStack {
             //MARK: - BACKGROUND
             Rectangle()
                 .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
                 .edgesIgnoringSafeArea(.all)
-                    
-                
-                Rectangle()
-                    .frame(width: 550)
-                    .foregroundColor(Color.white)
-                    .rotationEffect(Angle(degrees: 80))
+            
+            
+            Rectangle()
+                .frame(width: 550)
+                .foregroundColor(Color.white)
+                .rotationEffect(Angle(degrees: 80))
             
             //MARK: - TITLE + SHARE
             VStack {
@@ -44,17 +41,17 @@ struct ContentView: View {
                         .padding(.trailing, 30)
                     
                     // Share button (to send by text)
-                    ShareLink(item: "Hello World!"){
+                    ShareLink(item: createMessage()){
                         Label("", systemImage: "square.and.arrow.up")
                             .foregroundColor(Color.white)
                     }
                     
-//                    Button(action: {
-//                        print("pressed")
-//                    }, label: {Image(systemName: "square.and.arrow.up")
-//                        .foregroundColor(Color.white)
-//
-//                    })
+                    //                    Button(action: {
+                    //                        print("pressed")
+                    //                    }, label: {Image(systemName: "square.and.arrow.up")
+                    //                        .foregroundColor(Color.white)
+                    //
+                    //                    })
                     
                     
                 }.scaleEffect(2)
@@ -79,17 +76,17 @@ struct ContentView: View {
                             TextField("Total", text: $total){ _ in
                                 updateNumbers()
                             }
-                                .frame(width: 90)
-                                .fontWeight(.bold)
-                                .font(.system(size: 25.0))
-                                .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
-                                .keyboardType(.decimalPad)
-                                .onReceive(Just(total)) { newValue in
-                                    let filtered = newValue.filter { "0123456789.".contains($0) }
-                                    if filtered != newValue {
-                                        self.total = filtered
-                                    }
+                            .frame(width: 90)
+                            .fontWeight(.bold)
+                            .font(.system(size: 25.0))
+                            .foregroundColor(Color(red: 243/255, green: 154/255, blue: 54/255))
+                            .keyboardType(.decimalPad)
+                            .onReceive(Just(total)) { newValue in
+                                let filtered = newValue.filter { "0123456789.".contains($0) }
+                                if filtered != newValue {
+                                    self.total = filtered
                                 }
+                            }
                         }.padding(.bottom, -9)
                         Divider()
                             .frame(width: 40)
@@ -114,9 +111,9 @@ struct ContentView: View {
                     }.padding([.bottom, .top], 10)
                     
                     Slider(value: $tip, in: 0...100, step: 1.0){ _ in
-                            updateNumbers()
+                        updateNumbers()
                     }
-                        .padding(.horizontal, 90)
+                    .padding(.horizontal, 90)
                 }.padding(.vertical, 8)
                 
                 //MARK: - SPLIT
@@ -197,6 +194,13 @@ struct ContentView: View {
         totalPerPerson = totalTipped / splitNumber
         partTip = tipAmount / splitNumber
         partBill = totalDouble / splitNumber
+    }
+    
+    
+    func createMessage() -> String {
+        let message = "Bill Amount: $\(total)\nTip Amount: \(tip)%\nSplit:\(splitNumber)\nTotal per person: $\(totalPerPerson)"
+        print(message)
+        return message
     }
 }
 
