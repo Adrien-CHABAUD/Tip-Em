@@ -4,7 +4,7 @@
   Author: Adrien CHABAUD
  -->
  
- <img src="/images/Adrien_banner_01.png">
+ <img src="/Documentation/Adrien_banner_01.png">
  
  
  # Tip-Em ![iOS Badge](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white) ![Swift Badge](https://img.shields.io/badge/Swift%20Version-5-orange) 
